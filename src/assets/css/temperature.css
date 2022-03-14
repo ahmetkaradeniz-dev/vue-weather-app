@@ -1,0 +1,29 @@
+section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.temperature__value {
+    font-size: 7em;
+    color: rgba(255, 255, 255, 0.75);
+}
+.temperature__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.temperature__scale {
+    padding-top: 5px;
+    font-size: 2em;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.75);
+}
+.temperature__high {
+    padding-top: 5px;
+}
+.temperature__high img {
+    vertical-align: middle;
+}
+.temperature__low img {
+    vertical-align: middle;
+}

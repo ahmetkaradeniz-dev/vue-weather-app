@@ -1,0 +1,36 @@
+section {
+    width: 100%;
+}
+
+section input {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.30), 0 10px 10px rgba(0, 0, 0, 0.22);
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+main.weather input::placeholder{
+    color: rgba(255, 255, 255, 0.75);
+}
+
+main.weather.day input {
+    background-color: #6CB9C8;
+}
+
+main.weather.night input {
+    background-color: #484F60;
+}
+
+@media screen and (min-width: 450px) {
+    section {
+        width: 330px;
+        border-radius: 5px;
+    }
+}
+

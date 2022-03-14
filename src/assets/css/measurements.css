@@ -1,0 +1,22 @@
+section {
+    width: 100%;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.cloudiness img {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+}
+.wind-speed img {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+}
+.humidity img {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+}

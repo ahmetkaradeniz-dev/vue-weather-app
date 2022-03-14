@@ -1,81 +1,74 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { computed, onMounted, reactive } from "vue";
+import OpenWeatherService from "@/services/OpenWeatherService";
+import Search from "./components/Search.vue";
+import Weather from "./components/Weather.vue";
+import { getLocation } from "@/helpers"
+import type IMeasurements from "./interfaces/props/IMeasurements";
+import type ITemperature from "./interfaces/props/ITemperature";
+import type IWeather from "./interfaces/props/IWeather";
+import Measurements from "./components/Measurements.vue";
+import Temperature from "./components/Temperature.vue";
+
+const state = reactive({
+  date: new Date(),
+  coord: {
+    lat: 0,
+    lon: 0
+  },
+  measurements: {} as IMeasurements,
+  temperature: {} as ITemperature,
+  weather: {} as IWeather,
+  search: ''
+})
+
+onMounted(async () => {
+  state.coord = await getLocation()
+  const data = await OpenWeatherService.getLocation(state.coord)
+  state.measurements.cloudiness = data.clouds.all
+  state.measurements.windSpeed = data.wind.speed
+  state.measurements.humidity = data.main.humidity
+  state.temperature.value = Math.round(data.main.temp)
+  state.temperature.high = Math.round(data.main.temp_max)
+  state.temperature.low = Math.round(data.main.temp_min)
+  state.weather.location = `${data.name}, ${data.sys.country}`
+  state.weather.description = data.weather[0].description
+  //state.weather.icon = require('../assets/icons/weather/cloud.svg')
+})
+
+const getPeriod = computed(() => {
+  const hour = state.date.getHours()
+  return (hour > 5 && hour < 18) ? 'day' : 'night'
+})
+
+
+const query = async () => {
+  const data = await OpenWeatherService.getQuery({ query: state.search })
+  state.measurements.cloudiness = data.clouds.all
+  state.measurements.windSpeed = data.wind.speed
+  state.measurements.humidity = data.main.humidity
+  state.temperature.value = Math.round(data.main.temp)
+  state.temperature.high = Math.round(data.main.temp_max)
+  state.temperature.low = Math.round(data.main.temp_min)
+  state.weather.location = `${data.name}, ${data.sys.country}`
+  state.weather.description = data.weather[0].description
+}
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+  <main class="weather" :class="getPeriod">
+    <Search v-model="state.search" @searchEnter="query" />
+    <main>
+      <Measurements :data="state.measurements" />
+      <Temperature :data="state.temperature" />
+      <Weather :data="state.weather" />
+    </main>
   </main>
 </template>
 
 <style>
-@import './assets/base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-}
+@import url("@/assets/css/app.css");
+@import url("@/assets/css/weather.css");
 </style>
