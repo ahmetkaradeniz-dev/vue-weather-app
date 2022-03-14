@@ -3,9 +3,9 @@
 [Projenin linki](https://vue-credit-card-app.netlify.app)
 
 ### BİLGİLENDİRME
-```
+
 konum bilgisinden bulunduğunuz yerin hava durumu bilgileri alınıyor daha sonrasında ise arama alanından istediğiniz yerin hava durumu bilgisi alınıyor
-```
+
 
 ### Kurulum
 ```
