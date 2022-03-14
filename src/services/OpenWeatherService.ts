@@ -8,7 +8,7 @@ class OpenWeatherService implements IWeatherService {
 
     constructor() {
         this.apiKey = '11f5caf18db8b44ea88cc70474ff3c09'
-        this.apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${this.apiKey}&lang=tr&`
+        this.apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${this.apiKey}&lang=tr&units=metric&`
     }
 
     async getLocation(p: Ilocation) {

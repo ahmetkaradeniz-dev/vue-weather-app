@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type ITemperature from "@/interfaces/props/ITemperature";
 
-const props = defineProps<{ data: ITemperature }>()
+const props = defineProps<{ data: any }>();
 
 </script>
 
@@ -10,7 +9,7 @@ const props = defineProps<{ data: ITemperature }>()
         <div class="temperature__value"> {{ data.value }} </div>
         <div class="temperature__right">
             <div class="temperature__scale">
-                <a href="#">&deg;F</a>
+                &deg;C
             </div>
             <div class="temperature__high">
                 <img src="../assets/icons/high.svg" alt="high temperature" />

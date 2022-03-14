@@ -3,7 +3,7 @@ import { computed, onMounted, reactive } from "vue";
 import OpenWeatherService from "@/services/OpenWeatherService";
 import Search from "./components/Search.vue";
 import Weather from "./components/Weather.vue";
-import { getLocation } from "@/helpers"
+import { getLocation, getWeatherIcon } from "@/helpers"
 import type IMeasurements from "./interfaces/props/IMeasurements";
 import type ITemperature from "./interfaces/props/ITemperature";
 import type IWeather from "./interfaces/props/IWeather";
@@ -33,7 +33,7 @@ onMounted(async () => {
   state.temperature.low = Math.round(data.main.temp_min)
   state.weather.location = `${data.name}, ${data.sys.country}`
   state.weather.description = data.weather[0].description
-  //state.weather.icon = require('../assets/icons/weather/cloud.svg')
+  state.weather.icon = getWeatherIcon(data.weather[0].id)
 })
 
 const getPeriod = computed(() => {
@@ -52,6 +52,7 @@ const query = async () => {
   state.temperature.low = Math.round(data.main.temp_min)
   state.weather.location = `${data.name}, ${data.sys.country}`
   state.weather.description = data.weather[0].description
+  state.weather.icon = getWeatherIcon(data.weather[0].id)
 }
 
 
@@ -70,5 +71,4 @@ const query = async () => {
 
 <style>
 @import url("@/assets/css/app.css");
-@import url("@/assets/css/weather.css");
 </style>
