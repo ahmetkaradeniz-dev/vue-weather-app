@@ -1,6 +1,6 @@
 # Vue Weather App
 
-[Projenin linki](https://vue-credit-card-app.netlify.app)
+[Projenin linki](https://vue-weather-app-wheat.vercel.app/)
 
 ### BİLGİLENDİRME
 
